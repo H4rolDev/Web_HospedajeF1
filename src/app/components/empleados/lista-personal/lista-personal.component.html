@@ -1,0 +1,63 @@
+<div class="card">
+  <div class="card-body">
+    <form >
+    <h5 class="card-title">LISTADO DE PERSONAL</h5>
+    <hr />
+    <div class="row">
+      <div class="col-xl-3">
+        <div class="mb-3">
+          <label class="form-label">Nombre</label>
+          <input type="text" class="form-control" placeholder="Ingrese estado." >
+        </div>
+      </div>
+      <div class="col text-right">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+          data-bs-target="#modalCliente" (click)="AbrirModal()">
+          <i class="fa-solid fas fa-plus"></i>
+          Agregar personal
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-3">
+        <div class="mb-3">
+          <label class="form-label">Cargo</label>
+          <input type="text" class="form-control" placeholder="Ingrese nombre de producto" >
+        </div>
+      </div>
+      <div class="col-xl-3">
+        <div class="mb-3">
+          <label class="form-label">Estado</label>
+          <input type="text" class="form-control" placeholder="Ingrese categoria" >
+        </div>
+      </div>
+      <div class="col-xl-3" style="margin-top: 29px">
+        <button type="button" class="btn btn-success" style="margin-right: 5px;">
+          <i class="fa-solid fas fa-search"></i>
+          Buscar
+        </button>
+        <button type="button" class="btn btn-danger">
+          <i class="fa-solid fas fa-eraser"></i>
+          Limpiar</button>
+      </div>
+    </div>
+    <hr />
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Cargo</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </form>
+  </div>
+</div>

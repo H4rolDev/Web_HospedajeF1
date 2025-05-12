@@ -1,0 +1,23 @@
+/* Estilo base para los enlaces del menú */
+.nav-link {
+  color: black; /* Texto en negro */
+  text-decoration: none; /* Sin subrayado */
+  transition: background-color 0.3s ease; /* Transición suave para el fondo */
+}
+
+/* Estilo cuando el menú está activo (seleccionado) */
+.nav-link.active {
+  background-color: #f0f0f0; /* Gris suave como fondo */
+  color: black; /* Texto en negro */
+}
+
+/* Estilo para la ubicación actual (ruta activa) */
+.nav-link.router-link-active {
+  background-color: #f0f0f0; /* Gris suave como fondo */
+  color: black; /* Texto en negro */
+}
+
+/* Estilo para los iconos */
+.nav-link i {
+  color: black; /* Iconos en negro */
+}

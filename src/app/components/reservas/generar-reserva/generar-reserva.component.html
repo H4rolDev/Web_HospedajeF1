@@ -1,0 +1,127 @@
+<div class="container" style="background-color: white;">
+  <h2 class="text-center pt-4">RESERVAS</h2>
+
+  <form>
+    <!-- Datos del Usuario -->
+    <fieldset class="mb-4 p-3 border rounded">
+      <legend class="fw-bold">DATOS DEL USUARIO</legend>
+      <div class="row g-3">
+        <div class="col-md-2">
+          <label for="tipoDoc" class="form-label">Tipo Doc:</label>
+          <select id="tipoDoc" class="form-select">
+            <option>CC</option>
+            <option>TI</option>
+            <option>Pasaporte</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label for="numDoc" class="form-label">Número de doc.:</label>
+          <input type="text" id="numDoc" class="form-control" placeholder="0000000000" />
+        </div>
+        <div class="col-md-3">
+          <label for="apellidos" class="form-label">Apellidos:</label>
+          <input type="text" id="apellidos" class="form-control" placeholder="Escribe los apellidos" />
+        </div>
+        <div class="col-md-3">
+          <label for="nombres" class="form-label">Nombres:</label>
+          <input type="text" id="nombres" class="form-control" placeholder="Escribe los nombres" />
+        </div>
+        <div class="col-md-2">
+          <label for="telefono" class="form-label">Teléfono:</label>
+          <input type="tel" id="telefono" class="form-control" placeholder="999999999" />
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Datos de la Habitación -->
+    <fieldset class="mb-4 p-3 border rounded">
+      <legend class="fw-bold">DATOS DE LA HABITACION</legend>
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label for="tipoHab" class="form-label">Tipo de habitación:</label>
+          <select id="tipoHab" class="form-select">
+            <option>Matrimonial</option>
+            <option>Doble</option>
+            <option>Suite</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label for="numHab" class="form-label">Número de habitación:</label>
+          <input type="text" id="numHab" class="form-control" placeholder="Ejm: 203" />
+        </div>
+        <div class="col-md-2">
+          <label for="personas" class="form-label">Personas:</label>
+          <input type="number" id="personas" class="form-control" placeholder="Ejm: 2" />
+        </div>
+        <div class="col-md-2">
+          <label for="dias" class="form-label">Días de hospedaje:</label>
+          <input type="number" id="dias" class="form-control" placeholder="Ejm: 2" />
+        </div>
+        <div class="col-md-2">
+          <label for="costo" class="form-label">Costo por día:</label>
+          <input type="text" id="costo" class="form-control" placeholder="S/. 00.00" />
+        </div>
+        <div class="col-md-2">
+          <label for="adelanto" class="form-label">Adelanto:</label>
+          <input type="text" id="adelanto" class="form-control" placeholder="S/. 00.00" />
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Productos -->
+    <fieldset class="mb-4 p-3 border rounded">
+      <legend class="fw-bold">Productos</legend>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label for="producto" class="form-label">Producto:</label>
+          <select id="producto" class="form-select">
+            <option>Coca Cola 750ml</option>
+            <option>Agua Mineral</option>
+            <option>Snacks</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label for="cantidad" class="form-label">Cantidad:</label>
+          <input type="number" id="cantidad" class="form-control" placeholder="Ejm: 2" />
+        </div>
+        <div class="col-md-2">
+          <label for="precio" class="form-label">Precio:</label>
+          <input type="text" id="precio" class="form-control" placeholder="S/. 00.00" />
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Tabla de Productos -->
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Nombre del Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Precio Total</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Coca Cola 750ml</td>
+            <td>2</td>
+            <td>S/. 3.00</td>
+            <td>S/. 6.00</td>
+            <td>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fas fa-times"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="text-end fw-bold">
+        Monto Total: S/. 6.00
+      </div>
+
+
+    <!-- Botón Confirmar -->
+    <div class="text-center">
+      <button type="submit" class="btn btn-dark p-4 py-2 mb-4">Confirmar Reserva</button>
+    </div>
+  </form>
+</div>

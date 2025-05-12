@@ -1,0 +1,67 @@
+<div class="card">
+  <div class="card-body">
+    <form >
+    <h5 class="card-title">LISTADO DE INCIDENCIAS</h5>
+    <hr />
+    <div class="row">
+      <div class="col-xl-3">
+        <div class="form-group mb-3">
+          <label class="form-label">Fecha Inicio: *</label>
+          <dx-date-box
+            placeholder="dd/mm/aaaa"
+            displayFormat="dd/MM/yyyy"
+            [showClearButton]="true"
+            [useMaskBehavior]="true"
+            type="date"
+            [value]="fechaActual"
+            formControlName="inputFechaInicio">
+          </dx-date-box>
+        </div>
+      </div>
+      <div class="col-xl-3">
+        <div class="form-group mb-3">
+          <label class="form-label">Fecha Fin: *</label>
+          <dx-date-box
+            placeholder="dd/mm/aaaa"
+            displayFormat="dd/MM/yyyy"
+            [showClearButton]="true"
+            [useMaskBehavior]="true"
+            type="date"
+            [value]="fechaActual"
+            formControlName="inputFechaFin">
+          </dx-date-box>
+        </div>
+      </div>
+      <div class="col-xl-3">
+        <div class="mb-3">
+          <label class="form-label">Empleado</label>
+          <input type="text" class="form-control" placeholder="Ingrese nombre del empleado" formControlName="inputEmpleado">
+        </div>
+      </div>
+
+      <div class="col-xl-3" style="margin-top: 29px">
+        <button type="button" class="btn btn-success" style="margin-right: 5px;">
+          <i class="fa-solid fas fa-search"></i>
+          Buscar
+        </button>
+        <button type="button" class="btn btn-danger">
+          <i class="fa-solid fas fa-eraser"></i>
+          Limpiar</button>
+      </div>
+    </div>
+    <hr />
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Permisos</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </form>
+  </div>
+</div>

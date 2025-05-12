@@ -1,0 +1,131 @@
+<!-- BEGIN #sidebar -->
+<div id="sidebar" class="app-sidebar">
+    <!-- BEGIN scrollbar -->
+    <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
+        <!-- BEGIN menu -->
+        <div class="menu">
+          <div class="menu-item">
+            <a routerLink="/dashboard" class="menu-link">
+              <span class="menu-icon"><i class="fa fa-laptop"></i></span>
+              <span class="menu-text">Dashboard</span>
+            </a>
+          </div>
+          <!-- RESERVAS -->
+<ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link d-flex align-items-center" (click)="toggleReservas()" [ngClass]="{'active': reservasAbierto}">
+      <i class="fa fa-laptop me-2"></i> Reservas
+      <i class="fas ms-auto" [ngClass]="{'fa-chevron-down': !reservasAbierto, 'fa-chevron-up': reservasAbierto}"></i>
+    </a>
+  </li>
+  <!-- Submenú con animación -->
+  <ul *ngIf="reservasAbierto" @desplegar class="nav flex-column ms-3">
+    <li class="nav-item">
+      <a routerLink="/generar-reserva" class="nav-link active">Reservar</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/calendario" class="nav-link">Calendario</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/lista-reservas" class="nav-link">Lista de Reservas</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/lista-clientes" class="nav-link">Clientes</a>
+    </li>
+  </ul>
+</ul>
+
+<!-- HABITACIONES -->
+<ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link d-flex align-items-center" (click)="toggleHabitaciones()" [ngClass]="{'active': habitacionesAbierto}">
+      <i class="fa fa-laptop me-2"></i> Habitaciones
+      <i class="fas ms-auto" [ngClass]="{'fa-chevron-down': !habitacionesAbierto, 'fa-chevron-up': habitacionesAbierto}"></i>
+    </a>
+  </li>
+  <!-- Submenú con animación -->
+  <ul *ngIf="habitacionesAbierto" @desplegar class="nav flex-column ms-3">
+    <li class="nav-item">
+      <a routerLink="/lista-habitaciones" class="nav-link active">Habitaciones</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/tipo-habitacion" class="nav-link">Tipos de habitaciones</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/lista-pisos" class="nav-link">Pisos</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/producto-habitacion" class="nav-link">Productos habitacion</a>
+    </li>
+  </ul>
+</ul>
+
+<!-- PRODUCTOS -->
+<ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link d-flex align-items-center" (click)="toggleProductos()" [ngClass]="{'active': productosAbierto}">
+      <i class="fa fa-laptop me-2"></i> Productos
+      <i class="fas ms-auto" [ngClass]="{'fa-chevron-down': !productosAbierto, 'fa-chevron-up': productosAbierto}"></i>
+    </a>
+  </li>
+  <!-- Submenú con animación -->
+  <ul *ngIf="productosAbierto" @desplegar class="nav flex-column ms-3">
+    <li class="nav-item">
+      <a routerLink="/lista-productos" class="nav-link active">Producto</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/categoria-productos" class="nav-link">Categorias</a>
+    </li>
+  </ul>
+</ul>
+
+<!-- EMPLEADOS -->
+<ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link d-flex align-items-center" (click)="toggleEmpleados()" [ngClass]="{'active': empleadosAbierto}">
+      <i class="fa fa-laptop me-2"></i> Personal
+      <i class="fas ms-auto" [ngClass]="{'fa-chevron-down': !empleadosAbierto, 'fa-chevron-up': empleadosAbierto}"></i>
+    </a>
+  </li>
+  <!-- Submenú con animación -->
+  <ul *ngIf="empleadosAbierto" @desplegar class="nav flex-column ms-3">
+    <li class="nav-item">
+      <a routerLink="/lista-personal" class="nav-link active">Personal</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/cargos-personal" class="nav-link">Cargo</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/permisos-personal" class="nav-link">Permisos</a>
+    </li>
+  </ul>
+</ul>
+
+<!-- LIMPIEZA -->
+<ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link d-flex align-items-center" (click)="toggleLimpieza()" [ngClass]="{'active': limpiezaAbierto}">
+      <i class="fa fa-laptop me-2"></i> Limpieza
+      <i class="fas ms-auto" [ngClass]="{'fa-chevron-down': !limpiezaAbierto, 'fa-chevron-up': limpiezaAbierto}"></i>
+    </a>
+  </li>
+  <!-- Submenú con animación -->
+  <ul *ngIf="limpiezaAbierto" @desplegar class="nav flex-column ms-3">
+    <li class="nav-item">
+      <a routerLink="/reportes-limpieza" class="nav-link active">Reportes</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/incidencias-limpieza" class="nav-link">Incidencias</a>
+    </li>
+  </ul>
+</ul>
+        </div>
+        <!-- END menu -->
+    </div>
+    <!-- END scrollbar -->
+
+    <!-- BEGIN mobile-sidebar-backdrop -->
+    <button class="app-sidebar-mobile-backdrop" data-dismiss="sidebar-mobile"></button>
+    <!-- END mobile-sidebar-backdrop -->
+</div>
+<!-- END #sidebar -->
