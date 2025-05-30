@@ -1,0 +1,29 @@
+<div class="card">
+  <div class="card-body">
+    <form >
+    <h5 class="card-title">LISTADO DE TIPOS DE HABITACIONES</h5>
+    <hr/>
+    <div class="row">
+      <div class="col text-right">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+          data-bs-target="#modalTiposHabitaciones" (click)="AbrirModal()">
+          <i class="fa-solid fas fa-plus"></i>
+          Agregar tipo habitacion
+        </button>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    </form>
+  </div>
+</div>

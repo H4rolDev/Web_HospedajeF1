@@ -1,0 +1,94 @@
+<!-- BEGIN #sidebar -->
+<div id="sidebar" class="app-sidebar">
+  <!-- BEGIN menu -->
+  <div class="menu">
+
+    <!-- DASHBOARD -->
+    <div class="menu-item">
+      <a routerLink="/dashboard" class="menu-link">
+        <span class="menu-icon"><i class="fa fa-laptop"></i></span>
+        <span class="menu-text">Dashboard</span>
+      </a>
+    </div>
+
+    <!-- RESERVAS -->
+    <div class="menu-item">
+      <a class="menu-link" (click)="toggleReservas()" [ngClass]="{'active': reservasAbierto}">
+        <span class="menu-icon"><i class="fa fa-calendar-alt"></i></span>
+        <span class="menu-text">Reservas</span>
+        <i class="fas ms-auto" [ngClass]="{'fa-chevron-down': !reservasAbierto, 'fa-chevron-up': reservasAbierto}"></i>
+      </a>
+      <div *ngIf="reservasAbierto" class="submenu">
+        <a routerLink="/generar-reserva" class="menu-link">Reservar</a>
+        <a routerLink="/calendario" class="menu-link">Calendario</a>
+        <a routerLink="/lista-reservas" class="menu-link">Lista de Reservas</a>
+        <a routerLink="/lista-clientes" class="menu-link">Clientes</a>
+      </div>
+    </div>
+
+    <!-- HABITACIONES -->
+    <div class="menu-item">
+      <a class="menu-link" (click)="toggleHabitaciones()" [ngClass]="{'active': habitacionesAbierto}">
+        <span class="menu-icon"><i class="fa fa-bed"></i></span>
+        <span class="menu-text">Habitaciones</span>
+        <i class="fas ms-auto" [ngClass]="{'fa-chevron-down': !habitacionesAbierto, 'fa-chevron-up': habitacionesAbierto}"></i>
+      </a>
+      <div *ngIf="habitacionesAbierto" class="submenu">
+        <a routerLink="/lista-habitaciones" class="menu-link">Habitaciones</a>
+        <a routerLink="/tipo-habitacion" class="menu-link">Tipos de habitaciones</a>
+        <a routerLink="/lista-pisos" class="menu-link">Pisos</a>
+        <a routerLink="/producto-habitacion" class="menu-link">Productos habitación</a>
+      </div>
+    </div>
+
+    <!-- PRODUCTOS -->
+    <div class="menu-item">
+      <a class="menu-link" (click)="toggleProductos()" [ngClass]="{'active': productosAbierto}">
+        <span class="menu-icon"><i class="fa fa-box"></i></span>
+        <span class="menu-text">Productos</span>
+        <i class="fas ms-auto" [ngClass]="{'fa-chevron-down': !productosAbierto, 'fa-chevron-up': productosAbierto}"></i>
+      </a>
+      <div *ngIf="productosAbierto" class="submenu">
+        <a routerLink="/lista-productos" class="menu-link">Producto</a>
+        <a routerLink="/categoria-productos" class="menu-link">Categorías</a>
+      </div>
+    </div>
+
+    <!-- EMPLEADOS -->
+    <div class="menu-item">
+      <a class="menu-link" (click)="toggleEmpleados()" [ngClass]="{'active': empleadosAbierto}">
+        <span class="menu-icon"><i class="fa fa-users"></i></span>
+        <span class="menu-text">Personal</span>
+        <i class="fas ms-auto" [ngClass]="{'fa-chevron-down': !empleadosAbierto, 'fa-chevron-up': empleadosAbierto}"></i>
+      </a>
+      <div *ngIf="empleadosAbierto" class="submenu">
+        <a routerLink="/lista-personal" class="menu-link">Personal</a>
+        <a routerLink="/cargos-personal" class="menu-link">Cargo</a>
+        <a routerLink="/permisos-personal" class="menu-link">Permisos</a>
+      </div>
+    </div>
+
+    <!-- LIMPIEZA -->
+    <div class="menu-item">
+      <a class="menu-link" (click)="toggleLimpieza()" [ngClass]="{'active': limpiezaAbierto}">
+        <span class="menu-icon"><i class="fa fa-broom"></i></span>
+        <span class="menu-text">Limpieza</span>
+        <i class="fas ms-auto" [ngClass]="{'fa-chevron-down': !limpiezaAbierto, 'fa-chevron-up': limpiezaAbierto}"></i>
+      </a>
+      <div *ngIf="limpiezaAbierto" class="submenu">
+        <a routerLink="/reportes-limpieza" class="menu-link">Reportes</a>
+        <a routerLink="/incidencias-limpieza" class="menu-link">Incidencias</a>
+      </div>
+    </div>
+
+    <!-- CERRAR SESIÓN -->
+    <div class="logout-item">
+      <a class="menu-link" (click)="logout()">
+        <span class="menu-icon"><i class="fa fa-sign-out-alt"></i></span>
+        <span class="menu-text">Cerrar Sesión</span>
+      </a>
+    </div>
+  </div>
+  <!-- END menu -->
+</div>
+<!-- END #sidebar -->

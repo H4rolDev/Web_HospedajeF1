@@ -1,0 +1,71 @@
+.button-green{
+    background-color: #0d975b;
+    border-color: #0d975b;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    color: white;
+}        
+.button-red{
+    background-color: red;
+    border-color: red;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    color: white;
+}
+
+.button-green:hover{
+    background-color: #04502f;
+    border-color: #04502f;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    color: white;
+}        
+.button-red:hover{
+    background-color: rgb(129, 5, 5);;
+    border-color: rgb(129, 5, 5);;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    color: white;
+}
+
+.button-green-custom{
+    background-color: #0d975b;
+    border-color: #0d975b;
+    width: 130px;
+    height: 35px;
+    border-radius: 50px;
+    color: white;
+}
+.button-green-custom:hover {
+    background-color: #04502f;
+    border-color: #04502f;
+    width: 130px;
+    height: 35px;
+    border-radius: 50px;
+    color: white;
+}
+
+.button-red-custom{
+    background-color: red;
+    border-color: red;
+    width: 130px;
+    height: 35px;
+    border-radius: 50px;
+    color: white;
+}
+.button-red-custom:hover{
+    background-color: rgb(129, 5, 5);
+    border-color: rgb(129, 5, 5);
+    width: 130px;
+    height: 35px;
+    border-radius: 50px;
+    color: white;
+}
+
+.text-right{
+    text-align: right !important;
+}

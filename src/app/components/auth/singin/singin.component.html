@@ -1,0 +1,44 @@
+<!-- auth/login/login.component.html -->
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+    </div>
+
+    <div class="login-body">
+      <h2 class="text-center mb-4">SIGN IN</h2>
+      <p class="text-center mb-4">Enter your email address and password to access admin panel.</p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" formControlName="email" placeholder="user@demo.com">
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" formControlName="password" placeholder="E23456">
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="rememberMe">
+            <label class="form-check-label" for="rememberMe">Share password</label>
+          </div>
+        </div>
+
+        <div class="d-grid mb-3">
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="isLoading">
+            <span *ngIf="!isLoading">Sign in</span>
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+
+        <div class="text-center">
+          <p>New hand! <a routerLink="/register" class="text-primary">Sign Up</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

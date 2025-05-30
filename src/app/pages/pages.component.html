@@ -1,0 +1,17 @@
+<!-- BEGIN #app -->
+<div id="app" class="app">
+    <app-header></app-header>
+    <app-siderbar *ngIf="authService.isAuthenticated()"></app-siderbar>
+    <div class="main-content" [class.sidebar-collapsed]="sidebarCollapsed">
+      <app-header (toggleSidebar)="toggleSidebar()"></app-header>
+
+      <div class="content-container">
+      </div>
+    </div>
+    <!-- BEGIN #content -->
+    <div id="content" class="app-content">
+        <router-outlet />
+    </div>
+    <!-- END #content -->
+</div>
+<!-- END #app -->

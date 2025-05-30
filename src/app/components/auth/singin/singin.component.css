@@ -1,0 +1,99 @@
+/* login.component.css */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.login-subtitle {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.divider {
+  display: inline-block;
+  position: relative;
+  color: #6c757d;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 50px;
+  height: 1px;
+  background-color: #dee2e6;
+}
+
+.divider::before {
+  left: -60px;
+}
+
+.divider::after {
+  right: -60px;
+}
+
+.btn-block {
+  padding: 0.5rem;
+}
+
+/* auth/login/login.component.css */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.login-subtitle {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.btn-block {
+  padding: 0.5rem;
+}

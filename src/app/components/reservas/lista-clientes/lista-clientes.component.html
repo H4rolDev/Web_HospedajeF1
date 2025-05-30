@@ -1,0 +1,64 @@
+<div class="card">
+  <div class="card-body">
+    <form autocomplete="off" novalidate="novalidate" [formGroup]="dataFormGroup">
+      <h5 class="card-title">LISTADO DE CLIENTES</h5>
+      <hr />
+      <div class="row">
+        <div class="col text-right">
+          <button type="button" class="btn btn-primary" (click)="AbrirModal()"><i class="fas fa-solid fa-plus"></i>Agregar cliente</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-3">
+          <div class="form-group mb-3">
+            <label class="form-label">Número de documento:</label>
+          <input type="text" class="form-control" formControlName="documentNumber" placeholder="Ingrese el número de documento.">
+          </div>
+        </div>
+        <div class="col-xl-3" style="margin-top: 29px">
+          <button type="button" class="btn btn-success" style="margin-right: 5px;" (click)="buscarPorDocumento()">
+            <i class="fa-solid fas fa-search"></i>
+            Buscar
+          </button>
+          <button type="button" class="btn btn-danger" (click)="limpiarFiltros()">
+            <i class="fa-solid fas fa-eraser"></i>
+            Limpiar</button>
+        </div>
+      </div>
+      <hr />
+      <div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">N°</th>
+        <th scope="col">Tipo de cliente</th>
+        <th scope="col">Tipo de documento</th>
+        <th scope="col">Numero de documento</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Celular</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="clientes.length > 0">
+      <tr *ngFor="let cliente of clientes; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ cliente.clientType }}</td>
+        <td>{{ cliente.documentType }}</td>
+        <td>{{ cliente.documentNumber }}</td>
+        <td>{{ cliente.name }}</td>
+        <td>{{ cliente.phone }}</td>
+        <td>
+          <button class="btn btn-sm btn-primary" (click)="editarCliente(cliente)">
+            <i class="fa-solid fas fa-pen"></i>
+          </button>
+          <button class="btn btn-sm btn-danger" (click)="eliminarCliente(cliente.id)">
+            <i class="fa-solid fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="card">
+  <div class="card-body">
+    <form autocomplete="off" novalidate="novalidate">
+      <h5 class="card-title">LISTADO DE RESERVAS</h5>
+      <hr />
+      <div class="row">
+        <div class="col-xl-3">
+          <div class="mb-3">
+            <label class="form-label">Nro. reserva</label>
+            <input type="number" class="form-control" placeholder="Ingrese nro. reserva" formControlName="inputNroReserva">
+          </div>
+        </div>
+        <div class="col text-right">
+          <button type="button" class="btn btn-primary">
+          <i class="fas fa-solid fa-plus"></i>
+          Agregar reserva</button>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-3">
+            <div class="form-group mb-3">
+              <label class="form-label">Fecha Inicio: *</label>
+              <dx-date-box
+                placeholder="dd/mm/aaaa"
+                displayFormat="dd/MM/yyyy"
+                [showClearButton]="true"
+                [useMaskBehavior]="true"
+                type="date"
+                [value]="fechaActual"
+                formControlName="inputFechaInicio">
+            </dx-date-box>
+          </div>
+        </div>
+        <div class="col-xl-3">
+          <div class="form-group mb-3">
+            <label class="form-label">Fecha Fin: *</label>
+            <dx-date-box
+              placeholder="dd/mm/aaaa"
+              displayFormat="dd/MM/yyyy"
+              [showClearButton]="true"
+              [useMaskBehavior]="true"
+              type="date"
+              [value]="fechaActual"
+              formControlName="inputFechaFin">
+            </dx-date-box>
+          </div>
+        </div>
+        <div class="col-xl-3" style="margin-top: 29px">
+          <button type="button" class="btn btn-success" style="margin-right: 5px;">
+            <i class="fa-solid fas fa-search"></i>
+            Buscar
+          </button>
+          <button type="button" class="btn btn-danger">
+            <i class="fa-solid fas fa-eraser"></i>
+            Limpiar</button>
+        </div>
+      </div>
+      <hr />
+      <!-- <div class="butttons-states-container">
+        <button type="button" class="btn btn-success mx-2 ">Desocupado</button>
+        <button type="button" class="btn btn-primary mx-2">Ocupado</button>
+        <button type="button" class="btn btn-danger mx-2">Porlimpiar</button>
+        <button type="button" class="btn btn-warning mx-2">Limpieza</button>
+        <button type="button" class="btn btn-info mx-2">Reservado</button>
+      </div> -->
+    </form>
+  </div>
+</div>
+
+<!-- <div class="mb-3">
+  <label class="form-label">Fecha reserva</label>
+  <input type="date" class="form-control" placeholder="Ingrese fecha reserva">
+</div> -->
