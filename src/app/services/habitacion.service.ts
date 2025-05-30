@@ -1,16 +1,16 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, retry, throwError } from 'rxjs';
-import { InsertarEmpleadoDTO } from '../dtos/insertar-empleado-dto';
 import { environment } from '../environments/environment';
-import { Empleado, PaginatedResponse } from '../dtos/lista-empleado-dto';
+import { catchError, Observable, retry, throwError } from 'rxjs';
+import { ActualizarHabitacionDTO, InsertarHabitacionDTO } from '../dtos/insertar-habitacion-dto';
+import { Habitacion, PaginatedResponse } from '../dtos/lista-habitacion-dto';
 
 const API_URL = environment.apiURL;
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeService {
+export class HabitacionService {
   constructor( private http: HttpClient ) { }
 
   public nTimeout: number = 20000;
@@ -29,43 +29,36 @@ export class EmployeeService {
     'Content-Type': 'application/json'
   })
 
-  public InsertarEmpleado(data: InsertarEmpleadoDTO) {
-    const url = `${API_URL}employee`;
+  public InsertarHabitacion(data: InsertarHabitacionDTO) {
+    const url = `${API_URL}room`;
     return this.http.post(url, data).pipe(
       retry(this.nRetry),
       catchError(this.handleError)
     );
   }
 
-  public obtenerEmpleados(page: number, size: number): Observable<PaginatedResponse<Empleado>> {
-    const url = `${API_URL}employees?page=${page}&size=${size}`;
-    return this.http.get<PaginatedResponse<Empleado>>(url).pipe(
+  public obtenerHabitaciones(page: number, size: number): Observable<PaginatedResponse<Habitacion>> {
+    const url = `${API_URL}rooms?page=${page}&size=${size}`;
+    return this.http.get<PaginatedResponse<Habitacion>>(url).pipe(
       retry(this.nRetry),
       catchError(this.handleError)
     );
   }
 
-  public actualizarEmpleado(id: number, data: InsertarEmpleadoDTO) {
-    const url = `${API_URL}employee/${id}`;
+  public actualizarHabitacion(id: number, data: ActualizarHabitacionDTO) {
+    const url = `${API_URL}room/${id}`;
     return this.http.put(url, data).pipe(
       retry(this.nRetry),
       catchError(this.handleError)
     );
   }
 
-  public eliminarEmpleado(id: number) {
-    const url = `${API_URL}employee/${id}`;
+  public eliminarHabitacion(id: number) {
+    const url = `${API_URL}room/${id}`;
     return this.http.delete(url).pipe(
       retry(this.nRetry),
       catchError(this.handleError)
     );
   }
 
-  public buscarEmpleadoPorDocumento(numeroDocumento: string) {
-    const url = `${API_URL}employee/document-number/${numeroDocumento}`;
-    return this.http.get<Empleado>(url).pipe(
-      retry(this.nRetry),
-      catchError(this.handleError)
-    );
-  }
 }
