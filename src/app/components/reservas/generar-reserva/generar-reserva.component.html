@@ -1,57 +1,127 @@
-<!-- reservation-form.component.html -->
-<!-- Nota: Para que funcionen los iconos, agregar Font Awesome a su proyecto:
-     En index.html: <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
 <div class="reservation-container">
   <div class="reservation-header">
     <h2>Nueva Reserva</h2>
-    <div class="steps-indicator">
-      <div class="step" [ngClass]="{'active': currentStep >= 1, 'completed': currentStep > 1}" (click)="currentStep = 1">
-        <div class="step-number">1</div>
-        <div class="step-label">Cliente</div>
-      </div>
-      <div class="step-line" [ngClass]="{'active': currentStep > 1}"></div>
-      <div class="step" [ngClass]="{'active': currentStep >= 2, 'completed': currentStep > 2}" (click)="currentStep = 2">
-        <div class="step-number">2</div>
-        <div class="step-label">Habitación</div>
-      </div>
-      <div class="step-line" [ngClass]="{'active': currentStep > 2}"></div>
-      <div class="step" [ngClass]="{'active': currentStep >= 3, 'completed': currentStep > 3}" (click)="currentStep = 3">
-        <div class="step-number">3</div>
-        <div class="step-label">Fechas</div>
-      </div>
-      <div class="step-line" [ngClass]="{'active': currentStep > 3}"></div>
-      <div class="step" [ngClass]="{'active': currentStep >= 4}" (click)="currentStep = 4">
-        <div class="step-number">4</div>
-        <div class="step-label">Confirmación</div>
-      </div>
-    </div>
   </div>
 
   <div class="reservation-content">
-    <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="reservationForm" (ngfSubmit)="onSubmit()">
+      <!-- Sección de Habitación -->
+      <div class="section-container">
+        <h3>Selección de Habitación</h3>
+        <div class="row">
+          <div class="col-xl-3">
+            <div class="mb-3">
+              <label class="form-label">Tipo de habitacion: *</label>
+              <select class="form-control" formControlName="roomTypeId">
+                <option value="" disabled selected>Seleccione un tipo de habitación</option>
+                <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">
+                  {{ tipo.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xl-3">
+            <div class="form-group mb-3">
+              <label class="form-label">Fecha Inicio: *</label>
+              <dx-date-box
+                placeholder="dd/mm/aaaa"
+                displayFormat="dd/MM/yyyy"
+                [showClearButton]="true"
+                [useMaskBehavior]="true"
+                type="date"
+                [value]="fechaActual"
+                formControlName="startDate">
+              </dx-date-box>
+            </div>
+          </div>
+          <div class="col-xl-3">
+            <div class="form-group mb-3">
+              <label class="form-label">Fecha Fin: *</label>
+              <dx-date-box
+                placeholder="dd/mm/aaaa"
+                displayFormat="dd/MM/yyyy"
+                [showClearButton]="true"
+                [useMaskBehavior]="true"
+                type="date"
+                [value]="fechaActual"
+                formControlName="endDate">
+              </dx-date-box>
+            </div>
+          </div>
+          <div class="col-xl-3" style="margin-top: 29px">
+            <button type="button" class="btn btn-success" style="margin-right: 5px;" (click)="BuscarHabitacionesPorCriterio()">
+              <i class="fa-solid fas fa-search"></i>
+              Buscar
+            </button>
+            <button type="button" class="btn btn-danger">
+              <i class="fa-solid fas fa-eraser"></i>
+              Limpiar
+            </button>
+          </div>
+        </div>
 
-      <!-- Paso 1: Datos del Cliente -->
-      <div *ngIf="currentStep === 1" class="step-content">
+        <div class="room-selection">
+          <div *ngFor="let room of habitacionesDisponibles"
+               class="room-card"
+               [ngClass]="{'selected': (reservationForm.get('roomIds')?.value ?? []).includes(room.id)}"
+               (click)="toggleRoomSelection(room.id!)">
+
+            <div class="room-info">
+              <h4>{{ room.roomTypeName }} <span class="room-number">Hab. {{ room.number }}</span></h4>
+              <p class="room-description">{{ room.description }}</p>
+              <div class="room-price">{{ room.hourPrice | currency:'PEN' }} / Hora</div>
+              <div class="room-price">{{ room.dailyPrice | currency:'PEN' }} / Día</div>
+            </div>
+            <div class="room-select-indicator" *ngIf="(reservationForm.get('roomIds')?.value ?? []).includes(room.id)">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="text-danger mt-2" *ngIf="reservationForm.get('roomIds')?.touched && reservationForm.get('roomIds')?.invalid">
+              Debe seleccionar al menos una habitación.
+            </div>
+          </div>
+        </div>
+        <div class="text-center my-3">
+        <h5>Tipo de tarifa para todas las habitaciones:</h5>
+        <button type="button"
+                class="btn"
+                [ngClass]="{'btn-primary': reservationForm.get('rateTypeGlobal')?.value === 'DIA', 'btn-outline-primary': reservationForm.get('rateTypeGlobal')?.value !== 'DIA'}"
+                (click)="cambiarRateTypeGlobal('DIA')">Día</button>
+
+        <button type="button"
+                class="btn ms-2"
+                [ngClass]="{'btn-primary': reservationForm.get('rateTypeGlobal')?.value === 'HORA', 'btn-outline-primary': reservationForm.get('rateTypeGlobal')?.value !== 'HORA'}"
+                (click)="cambiarRateTypeGlobal('HORA')">Hora</button>
+      </div>
+      </div>
+
+      <!-- Sección de Cliente -->
+      <div class="section-container">
         <h3>Datos del Cliente</h3>
+        <div class="form-row">
+          <div class="form-group position-relative">
+            <label for="documentNumber">Número de Documento <span class="required">*</span></label>
+            <div class="d-flex">
+              <input type="text" id="documentNumber" formControlName="documentNumber" class="form-control"
+                  [ngClass]="{'is-invalid': reservationForm.get('documentNumber')?.invalid && (reservationForm.get('documentNumber')?.touched || reservationForm.get('documentNumber')?.dirty)}">
+              <button type="button" class="btn btn-primary ms-2" (click)="buscarCliente()">
+                Buscar
+              </button>
+            </div>
+            <div class="invalid-feedback" *ngIf="reservationForm.get('documentNumber')?.invalid && (reservationForm.get('documentNumber')?.touched || reservationForm.get('documentNumber')?.dirty)">
+              Ingrese un número de documento válido (min 5, max 20 caracteres)
+            </div>
+          </div>
+        </div>
         <div class="form-row">
           <div class="form-group">
             <label for="documentType">Tipo de Documento <span class="required">*</span></label>
             <select id="documentType" formControlName="documentType" class="form-control"
                 [ngClass]="{'is-invalid': reservationForm.get('documentType')?.invalid && (reservationForm.get('documentType')?.touched || reservationForm.get('documentType')?.dirty)}">
               <option value="" disabled>Seleccione tipo de documento</option>
-              <option *ngFor="let type of documentTypes" [value]="type.id">{{ type.name }}</option>
+              <option *ngFor="let type of documentTypes" [value]="type">{{ type }}</option>
             </select>
             <div class="invalid-feedback" *ngIf="reservationForm.get('documentType')?.invalid && (reservationForm.get('documentType')?.touched || reservationForm.get('documentType')?.dirty)">
               Por favor seleccione un tipo de documento
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="documentNumber">Número de Documento <span class="required">*</span></label>
-            <input type="text" id="documentNumber" formControlName="documentNumber" class="form-control"
-                [ngClass]="{'is-invalid': reservationForm.get('documentNumber')?.invalid && (reservationForm.get('documentNumber')?.touched || reservationForm.get('documentNumber')?.dirty)}">
-            <div class="invalid-feedback" *ngIf="reservationForm.get('documentNumber')?.invalid && (reservationForm.get('documentNumber')?.touched || reservationForm.get('documentNumber')?.dirty)">
-              Ingrese un número de documento válido (min 5, max 20 caracteres)
             </div>
           </div>
         </div>
@@ -75,41 +145,41 @@
             </div>
           </div>
         </div>
-
-        <div class="form-actions">
-          <button type="button" class="btn btn-primary" (click)="nextStep()">Siguiente <i class="fas fa-arrow-right"></i></button>
-        </div>
-      </div>
-
-      <!-- Paso 2: Selección de Habitación -->
-      <div *ngIf="currentStep === 2" class="step-content">
-        <h3>Selección de Habitación</h3>
-
-        <div class="room-selection">
-          <div *ngFor="let room of rooms" class="room-card" [ngClass]="{'selected': reservationForm.get('roomId')?.value == room.id}" (click)="reservationForm.patchValue({roomId: room.id})">
-            <div class="room-image">
-              <img [src]="room.image" [alt]="room.type">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Correo Electrónico</label>
+            <input type="email" id="email" formControlName="email" class="form-control"
+                [ngClass]="{'is-invalid': reservationForm.get('email')?.invalid && (reservationForm.get('email')?.touched || reservationForm.get('email')?.dirty)}">
+            <div class="invalid-feedback" *ngIf="reservationForm.get('email')?.invalid && (reservationForm.get('email')?.touched || reservationForm.get('email')?.dirty)">
+              Ingrese un correo electrónico válido
             </div>
-            <div class="room-info">
-              <h4>{{ room.type }} <span class="room-number">Hab. {{ room.number }}</span></h4>
-              <p class="room-description">{{ room.description }}</p>
-              <div class="room-price">{{ room.price | currency:'EUR' }} / noche</div>
-            </div>
-            <div class="room-select-indicator" *ngIf="reservationForm.get('roomId')?.value == room.id">
-              <i class="fas fa-check-circle"></i>
+          </div>
+
+          <div class="form-group">
+            <label for="nationality">Nacionalidad</label>
+            <input type="text" id="nationality" formControlName="nationality" class="form-control"
+                [ngClass]="{'is-invalid': reservationForm.get('nationality')?.invalid && (reservationForm.get('nationality')?.touched || reservationForm.get('nationality')?.dirty)}">
+            <div class="invalid-feedback" *ngIf="reservationForm.get('nationality')?.invalid && (reservationForm.get('nationality')?.touched || reservationForm.get('nationality')?.dirty)">
+              Ingrese una nacionalidad válida
             </div>
           </div>
         </div>
 
-        <div class="form-actions">
-          <button type="button" class="btn btn-outline-secondary" (click)="previousStep()"><i class="fas fa-arrow-left"></i> Anterior</button>
-          <button type="button" class="btn btn-primary" (click)="nextStep()">Siguiente <i class="fas fa-arrow-right"></i></button>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="clientType">Tipo de Cliente</label>
+            <input type="text" id="clientType" formControlName="clientType" class="form-control"
+                [ngClass]="{'is-invalid': reservationForm.get('clientType')?.invalid && (reservationForm.get('clientType')?.touched || reservationForm.get('clientType')?.dirty)}">
+            <div class="invalid-feedback" *ngIf="reservationForm.get('clientType')?.invalid && (reservationForm.get('clientType')?.touched || reservationForm.get('clientType')?.dirty)">
+              Ingrese un tipo de cliente válido
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Paso 3: Fechas y Servicios -->
-      <div *ngIf="currentStep === 3" class="step-content">
-        <h3>Fechas y Servicios</h3>
+      <!-- Sección de Fechas y Servicios -->
+      <div class="section-container">
+        <h3>Fechas</h3>
 
         <div class="dates-section">
           <div class="form-row">
@@ -138,128 +208,15 @@
             </div>
           </div>
         </div>
-
-        <div class="services-section">
-          <h4>Tipo de Servicio</h4>
-          <div class="services-container">
-            <div *ngFor="let service of serviceTypes" class="service-card" [ngClass]="{'selected': reservationForm.get('serviceTypeId')?.value == service.id}" (click)="reservationForm.patchValue({serviceTypeId: service.id})">
-              <div class="service-icon">
-                <i class="fa" [ngClass]="{
-                  'fa-bed': service.id === 1,
-                  'fa-coffee': service.id === 2,
-                  'fa-utensils': service.id === 3,
-                  'fa-spa': service.id === 4
-                }"></i>
-              </div>
-              <div class="service-info">
-                <h5>{{ service.name }}</h5>
-                <p>{{ service.description }}</p>
-                <div class="additional-price" *ngIf="service.additionalPrice > 0">
-                  + {{ service.additionalPrice | currency:'EUR' }} / noche
-                </div>
-              </div>
-              <div class="service-select-indicator" *ngIf="reservationForm.get('serviceTypeId')?.value == service.id">
-                <i class="fas fa-check-circle"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-actions">
-          <button type="button" class="btn btn-outline-secondary" (click)="previousStep()"><i class="fas fa-arrow-left"></i> Anterior</button>
-          <button type="button" class="btn btn-primary" (click)="nextStep()">Siguiente <i class="fas fa-arrow-right"></i></button>
-        </div>
       </div>
 
-      <!-- Paso 4: Confirmación -->
-      <div *ngIf="currentStep === 4" class="step-content">
-        <h3>Resumen de la Reserva</h3>
-
-        <div class="summary-container">
-          <div class="summary-section">
-            <h4><i class="fas fa-user"></i> Datos del Cliente</h4>
-            <div class="summary-item">
-              <span>Documento:</span>
-              <p><strong>Documento:</strong> {{ getDocumentTypeName(reservationForm.get('documentType')?.value) }} - {{ reservationForm.get('documentNumber')?.value }}</p>
-            </div>
-            <div class="summary-item">
-              <span>Nombre:</span>
-              <span>{{ reservationForm.get('name')?.value }}</span>
-            </div>
-            <div class="summary-item">
-              <span>Teléfono:</span>
-              <span>{{ reservationForm.get('phone')?.value }}</span>
-            </div>
-          </div>
-
-          <div class="summary-section">
-            <h4><i class="fas fa-bed"></i> Habitación</h4>
-            <div class="summary-item" *ngIf="getSelectedRoom()">
-              <span>Tipo:</span>
-              <span>{{ getSelectedRoom()?.type }}</span>
-            </div>
-            <div class="summary-item" *ngIf="getSelectedRoom()">
-              <span>Número:</span>
-              <span>{{ getSelectedRoom()?.number }}</span>
-            </div>
-            <div class="summary-item">
-              <span>Tarifa:</span>
-              <span>{{ reservationForm.get('basePrice')?.value | currency:'EUR' }}</span>
-            </div>
-          </div>
-
-          <div class="summary-section">
-            <h4><i class="fas fa-calendar-alt"></i> Fechas</h4>
-            <div class="summary-item">
-              <span>Entrada:</span>
-              <span>{{ reservationForm.get('checkInDate')?.value | date:'dd/MM/yyyy' }} a las {{ reservationForm.get('checkInTime')?.value }}</span>
-            </div>
-            <div class="summary-item">
-              <span>Salida:</span>
-              <span>{{ reservationForm.get('checkOutDate')?.value | date:'dd/MM/yyyy' }} a las {{ reservationForm.get('checkOutTime')?.value }}</span>
-            </div>
-            <div class="summary-item">
-              <span>Estancia:</span>
-              <span>{{ getNights() }} noches</span>
-            </div>
-          </div>
-
-          <div class="summary-section">
-            <h4><i class="fas fa-concierge-bell"></i> Servicios</h4>
-            <ng-container *ngIf="getSelectedService() as selectedService">
-              <div class="summary-item">
-                <span>Servicio:</span>
-                <span>{{ selectedService.name }}</span>
-              </div>
-              <div class="summary-item" *ngIf="selectedService.additionalPrice > 0">
-                <span>Adicional:</span>
-                <span>{{ reservationForm.get('additionalPrice')?.value | currency:'EUR' }}</span>
-              </div>
-            </ng-container>
-          </div>
-
-          <div class="summary-section comments-section">
-            <h4><i class="fas fa-comment"></i> Comentarios</h4>
-            <div class="form-group">
-              <textarea formControlName="comments" class="form-control" rows="3" placeholder="Agregue comentarios adicionales para esta reserva (opcional)"></textarea>
-            </div>
-          </div>
-
-          <div class="summary-section total-section">
-            <h4>Total</h4>
-            <div class="total-price">{{ reservationForm.get('totalPrice')?.value | currency:'EUR' }}</div>
-          </div>
-        </div>
-
-        <div class="form-actions">
-          <button type="button" class="btn btn-outline-secondary" (click)="previousStep()"><i class="fas fa-arrow-left"></i> Anterior</button>
-          <button type="submit" class="btn btn-success" [disabled]="reservationForm.invalid || isSubmitting">
-            <i class="fas fa-check"></i> Confirmar Reserva
-            <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true"></span>
-          </button>
-        </div>
+      <!-- Botón de envío -->
+      <div class="form-actions">
+        <button type="submit" class="btn btn-success" (click)="onSubmit()">
+          <i class="fas fa-check"></i> Confirmar Reserva
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm ml-1"></span>
+        </button>
       </div>
-
     </form>
   </div>
 </div>

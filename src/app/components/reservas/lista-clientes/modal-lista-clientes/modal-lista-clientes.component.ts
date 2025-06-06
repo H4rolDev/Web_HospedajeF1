@@ -30,6 +30,8 @@ export class ModalListaClientesComponent {
       documentNumber: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       name: ['', Validators.required],
       phone: ['', Validators.required],
+      nationality: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
@@ -39,7 +41,9 @@ export class ModalListaClientesComponent {
       documentType: ['', Validators.required],
       documentNumber: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       name: ['', Validators.required],
-      phone: ['']
+      phone: ['', Validators.required],
+      nationality: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
     });
 
     if (this.clienteEditar) {
@@ -85,6 +89,7 @@ export class ModalListaClientesComponent {
   RegistrarCliente(): void {
     if (this.formularioCliente.invalid) {
       this.formularioCliente.markAllAsTouched();
+      this.MostrarMensajeError('Formulario inválido', 'Por favor, complete todos los campos requeridos correctamente.');
       return;
     }
 

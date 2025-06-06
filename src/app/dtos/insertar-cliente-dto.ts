@@ -4,4 +4,6 @@ export class InsertarClienteDTO {
   documentNumber!:string;
   name!:string;
   phone!:string;
+  nationality!:string;
+  email!:string;
 }

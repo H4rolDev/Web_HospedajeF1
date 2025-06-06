@@ -24,10 +24,12 @@ import { ModalCategoriaProductosComponent } from './productos/categorias-product
 import { ModalListaPersonalComponent } from './empleados/lista-personal/modal-lista-personal/modal-lista-personal.component';
 import { ModalCargoPersonalComponent } from './empleados/cargos-personal/modal-cargo-personal/modal-cargo-personal.component';
 import { SinginComponent } from './auth/singin/singin.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { GenerarReservaComponent } from './reservas/generar-reserva/generar-reserva.component';
 import { ModalListaClientesComponent } from './reservas/lista-clientes/modal-lista-clientes/modal-lista-clientes.component';
+import { PagarReservaComponent } from './reservas/pagar-reserva/pagar-reserva.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -56,13 +58,16 @@ import { ModalListaClientesComponent } from './reservas/lista-clientes/modal-lis
     ModalCargoPersonalComponent,
     SinginComponent,
     GenerarReservaComponent,
-    ModalListaClientesComponent
+    ModalListaClientesComponent,
+    PagarReservaComponent
   ],
   imports: [
     CommonModule,
     DxDateBoxModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterModule,
+    FormsModule
   ]
 })
 export class ComponentsModule { }

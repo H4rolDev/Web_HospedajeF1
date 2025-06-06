@@ -1,9 +1,9 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { catchError, Observable, retry, throwError } from 'rxjs';
 import { ActualizarHabitacionDTO, InsertarHabitacionDTO } from '../dtos/insertar-habitacion-dto';
-import { Habitacion, PaginatedResponse } from '../dtos/lista-habitacion-dto';
+import { Habitacion, PaginatedResponse, RoomDto } from '../dtos/lista-habitacion-dto';
 
 const API_URL = environment.apiURL;
 
@@ -30,24 +30,25 @@ export class HabitacionService {
   })
 
   public InsertarHabitacion(data: InsertarHabitacionDTO) {
-    const url = `${API_URL}room`;
-    return this.http.post(url, data).pipe(
-      retry(this.nRetry),
-      catchError(this.handleError)
-    );
-  }
+  const url = `${API_URL}room`;
+  return this.http.post(url, data).pipe(
+    retry(this.nRetry),
+    catchError(this.handleError)
+  );
+}
+
+public actualizarHabitacion(id: number, data: ActualizarHabitacionDTO) {
+  const url = `${API_URL}room/${id}`;
+  return this.http.put(url, data).pipe(
+    retry(this.nRetry),
+    catchError(this.handleError)
+  );
+}
+
 
   public obtenerHabitaciones(page: number, size: number): Observable<PaginatedResponse<Habitacion>> {
     const url = `${API_URL}rooms?page=${page}&size=${size}`;
     return this.http.get<PaginatedResponse<Habitacion>>(url).pipe(
-      retry(this.nRetry),
-      catchError(this.handleError)
-    );
-  }
-
-  public actualizarHabitacion(id: number, data: ActualizarHabitacionDTO) {
-    const url = `${API_URL}room/${id}`;
-    return this.http.put(url, data).pipe(
       retry(this.nRetry),
       catchError(this.handleError)
     );
@@ -61,4 +62,24 @@ export class HabitacionService {
     );
   }
 
+  public obtenerHabitacionesPorCriterios(
+  page: number,
+  size: number,
+  startDate: string,
+  endDate: string,
+  roomTypeId: number
+): Observable<PaginatedResponse<RoomDto>> {
+
+  const params = new HttpParams()
+    .set('startDate', startDate)
+    .set('endDate', endDate)
+    .set('roomTypeId', roomTypeId.toString())
+    .set('page', page.toString())
+    .set('size', size.toString());
+
+  return this.http.get<PaginatedResponse<RoomDto>>(`${API_URL}rooms/available`, { params }).pipe(
+    retry(this.nRetry),
+    catchError(this.handleError)
+  );
+}
 }

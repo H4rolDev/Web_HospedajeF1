@@ -19,6 +19,7 @@ import { CategoriasProductosComponent } from '../components/productos/categorias
 import { ListaClientesComponent } from '../components/reservas/lista-clientes/lista-clientes.component';
 import { SinginComponent } from '../components/auth/singin/singin.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { PagarReservaComponent } from '../components/reservas/pagar-reserva/pagar-reserva.component';
 
 const routes: Routes = [
     { path: 'login', component: SinginComponent },
@@ -44,6 +45,7 @@ const routes: Routes = [
         { path: 'lista-productos', component: ListaProductosComponent},
         { path: 'categoria-productos', component: CategoriasProductosComponent},
         { path: 'lista-clientes', component: ListaClientesComponent },
+        { path: 'pagar-reserva/:id', component: PagarReservaComponent },
 
         { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       ]

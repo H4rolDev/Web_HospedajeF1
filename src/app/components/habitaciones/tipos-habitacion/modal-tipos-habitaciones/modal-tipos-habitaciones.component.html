@@ -3,25 +3,28 @@
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="CerrarModal()"></button>
 </div>
 <div class="modal-body">
-  <form>
+  <form [formGroup]="formularioTipoHabitacion">
     <div class="row">
       <div class="col-xl-6 col-sm-12 col-lg-6">
         <div class="mb-3">
           <label class="form-label">Nombre: *</label>
-          <input type="text" class="form-control" placeholder="Ingrese nombre tipo habitacion.">
+          <input type="text" class="form-control" placeholder="Ingrese nombre tipo habitacion." formControlName="name">
         </div>
       </div>
       <div class="col-xl-6 col-sm-12 col-lg-6">
         <div class="mb-3">
           <label class="form-label">Descripcion:</label>
-          <input type="text" class="form-control" placeholder="Ingrese descripcion.">
+          <input type="text" class="form-control" placeholder="Ingrese descripcion." formControlName="description">
         </div>
       </div>
     </div>
   </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary"><i class="fas fa-solid fa-save"></i> Registrar</button>
-  <button type="button" class="btn btn-warning"><i class="fas fa-solid fa-pencil"></i> Actualizar</button>
-  <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="CerrarModal()"><i class="fa-solid fas fa-times"></i> Cerrar</button>
+  <button type="button" class="btn btn-primary" (click)="guardarTipoHabitacion()">
+    <i class="fas fa-save"></i> {{ tipoHabitacionEditar ? 'Actualizar' : 'Registrar' }}
+  </button>
+  <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="CerrarModal()">
+    <i class="fas fa-times"></i> Cerrar
+  </button>
 </div>

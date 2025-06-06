@@ -1,18 +1,17 @@
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, retry, throwError } from 'rxjs';
-import { InsertarClienteDTO } from '../dtos/insertar-cliente-dto';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { Cliente, PaginatedResponse } from '../dtos/listado-cliente-dto';
+import { InsertarTipoHabitacionDTO } from '../dtos/insertar-tipo-habitacion-dto';
+import { PaginatedResponse } from '../dtos/lista-habitacion-dto';
+import { TipoHabitacion } from '../dtos/listado-tipo-habitacion-dto';
 
 const API_URL = environment.apiURL;
 
 @Injectable({
   providedIn: 'root'
 })
-
-export class ClientService {
-
+export class TipoHabitacionService {
   constructor( private http: HttpClient ) { }
 
   public nTimeout: number = 20000;
@@ -31,47 +30,35 @@ export class ClientService {
     'Content-Type': 'application/json'
   })
 
-  public InsertarCliente(data: InsertarClienteDTO) {
-    const url = `${API_URL}client`;
+  public InsertarTipoHabitacion(data: InsertarTipoHabitacionDTO) {
+    const url = `${API_URL}room-type`;
     return this.http.post(url, data).pipe(
       retry(this.nRetry),
       catchError(this.handleError)
     );
   }
 
-  public obtenerClientes(page: number, size: number): Observable<PaginatedResponse<Cliente>> {
-    const url = `${API_URL}clients?page=${page}&size=${size}`;
-    return this.http.get<PaginatedResponse<Cliente>>(url).pipe(
+  public obtenerTipoHabitacion(page: number, size: number): Observable<PaginatedResponse<TipoHabitacion>> {
+    const url = `${API_URL}room-types?page=${page}&size=${size}`;
+    return this.http.get<PaginatedResponse<TipoHabitacion>>(url).pipe(
       retry(this.nRetry),
       catchError(this.handleError)
     );
   }
 
-  public actualizarCliente(id: number, data: InsertarClienteDTO) {
-    const url = `${API_URL}client/${id}`;
+  public actualizarTipoHabitacion(id: number, data: InsertarTipoHabitacionDTO) {
+    const url = `${API_URL}room-type/${id}`;
     return this.http.put(url, data).pipe(
       retry(this.nRetry),
       catchError(this.handleError)
     );
   }
 
-  public eliminarCliente(id: number) {
-    const url = `${API_URL}client/${id}`;
+  public eliminarTipoHabitacion(id: number) {
+    const url = `${API_URL}room-type/${id}`;
     return this.http.delete(url).pipe(
       retry(this.nRetry),
       catchError(this.handleError)
     );
-  }
-
-  public buscarClientePorDocumento(numeroDocumento: string) {
-    const url = `${API_URL}client/by-document?documentNumber=${numeroDocumento}`;
-    return this.http.get<Cliente>(url).pipe(
-      retry(this.nRetry),
-      catchError(this.handleError)
-    );
-  }
-
-  getClientePorId(id: number): Observable<any> {
-    return this.http.get(`${API_URL}client/${id}`);
   }
 }

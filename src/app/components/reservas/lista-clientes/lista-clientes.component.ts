@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { CriterioBusquedaListaReservaDTO } from '../../../dtos/lista-reserva-dto';
 import moment from 'moment';
 import { Cliente } from '../../../dtos/listado-cliente-dto';
 import { ClientService } from '../../../services/client.service';
@@ -15,7 +14,6 @@ import Swal from 'sweetalert2';
 })
 export class ListaClientesComponent {
   dataFormGroup: FormGroup;
-  criterioBusqueda = new CriterioBusquedaListaReservaDTO();
   textoCriterioBusqueda: string = "";
   fechaActual = moment().toDate();
   clientes: Cliente[] = [];

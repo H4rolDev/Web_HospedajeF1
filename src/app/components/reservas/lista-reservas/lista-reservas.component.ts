@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { CriterioBusquedaListaReservaDTO } from '../../../dtos/lista-reserva-dto';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import moment from 'moment';
+import { ReservationService } from '../../../services/reservation.service';
+import { Reserva } from '../../../dtos/lista-reserva-dto';
+import { PagarReservaComponent } from '../pagar-reserva/pagar-reserva.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lista-reservas',
@@ -9,38 +12,60 @@ import moment from 'moment';
   styleUrl: './lista-reservas.component.css'
 })
 export class ListaReservasComponent {
-  dataFormGroup: FormGroup;
+  form: FormGroup;
+  reservas: Reserva[] = [];
+  fechaActual = new Date();
 
-  criterioBusqueda = new CriterioBusquedaListaReservaDTO();
-  textoCriterioBusqueda: string = "";
-  fechaActual = moment().toDate();
-
-  constructor(){
-    this.dataFormGroup = new FormGroup({
-      inputNroReserva: new FormControl(''),
-      inputFechaInicio: new FormControl(''),
-      inputFechaFin: new FormControl(''),
+  constructor(
+    private fb: FormBuilder,
+    private reservaService: ReservationService,
+    private router: Router
+  ) {
+    this.form = this.fb.group({
+      inputNroReserva: [null],
+      inputFechaInicio: [this.fechaActual],
+      inputFechaFin: [this.fechaActual]
     });
   }
+
   ngOnInit(): void {
-    this.AsignarDatosCriterio();
+    this.buscarReservas();
   }
 
-  AsignarDatosCriterio(){
-    this.criterioBusqueda = new CriterioBusquedaListaReservaDTO();
-    this.textoCriterioBusqueda = "";
+  buscarReservas(): void {
+    const { inputNroReserva, inputFechaInicio, inputFechaFin } = this.form.value;
 
-    let fechaInicio = this.dataFormGroup.controls['inputFechaInicio'].value;
-    let fechaFin = this.dataFormGroup.controls['inputFechaFin'].value;
+    const params = {
+      clientId: 1,
+      roomId: 1,
+      status: '',
+      fromDate: inputFechaInicio?.toISOString(),
+      toDate: inputFechaFin?.toISOString(),
+      page: 0,
+      size: 50,
+      sort: ''
+    };
 
-    if (fechaInicio != '' && fechaInicio != null) {
-      this.criterioBusqueda.fechaInicio = moment(fechaInicio).format('YYYY-MM-DD');
-      this.criterioBusqueda.fechaFin = moment().format('YYYY-MM-DD');
-    }
-    //else
-    //  this.criterioBusqueda.fechaInicio = moment().format('YYYY-MM-DD');
+    this.reservaService.obtenerReservas(params).subscribe({
+      next: (response) => {
+        this.reservas = response.content || [];
+      },
+      error: (err) => {
+        console.error('Error al obtener reservas:', err);
+      }
+    });
+  }
 
-    if (fechaFin != '' && fechaFin != null)
-      this.criterioBusqueda.fechaFin = moment(fechaFin).format('YYYY-MM-DD');
+  limpiarFormulario(): void {
+    this.form.reset({
+      inputNroReserva: null,
+      inputFechaInicio: this.fechaActual,
+      inputFechaFin: this.fechaActual
+    });
+    this.reservas = [];
+  }
+
+  verDetalles(id: number): void {
+    this.router.navigate(['/pagar-reserva', id]);
   }
 }

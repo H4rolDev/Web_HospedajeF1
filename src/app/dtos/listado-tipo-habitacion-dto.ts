@@ -1,12 +1,7 @@
-export interface Cliente {
+export interface TipoHabitacion {
   id: number;
-  clientType: string;
-  documentType: string;
-  documentNumber: string;
   name: string;
-  phone: string;
-  nationality: string;
-  email: string;
+  description: string;
 }
 
 export interface PaginatedResponse<T> {

@@ -3,47 +3,80 @@
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="CerrarModal()"></button>
 </div>
 <div class="modal-body">
-  <form>
+  <form [formGroup]="formularioHabitacion" (ngSubmit)="guardarHabitacion()">
     <div class="row">
       <div class="col-xl-6 col-sm-12 col-lg-6">
         <div class="mb-3">
-          <label class="form-label">Numero: *</label>
-          <input type="text" class="form-control" placeholder="Ingrese nro. habitacion.">
+          <label class="form-label">Número: *</label>
+          <input type="text" class="form-control" placeholder="Ingrese nro. habitación." formControlName="number">
         </div>
       </div>
       <div class="col-xl-6 col-sm-12 col-lg-6">
         <div class="mb-3">
-          <label class="form-label">Tipo: *</label>
-          <input type="text" class="form-control" placeholder="Ingrese tipo de habitacion.">
+          <option formControlName="roomTypeId" >Seleccione un tipo de habitación</option>
+          <select class="form-select" >
+            <option value="" disabled selected>Seleccione un tipo de habitación</option>
+            <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">
+              {{ tipo.name }}
+            </option>
+          </select>
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="col-xl-6 col-sm-12 col-lg-6">
         <div class="mb-3">
-          <label class="form-label">Precio dia: *</label>
-          <input type="number" class="form-control" placeholder="Ingrese precio." min="0">
+          <label class="form-label">Precio día: *</label>
+          <input type="number" class="form-control" placeholder="Ingrese precio." min="0" formControlName="dailyPrice">
         </div>
       </div>
       <div class="col-xl-6 col-sm-12 col-lg-6">
         <div class="mb-3">
           <label class="form-label">Precio hora: *</label>
-          <input type="number" class="form-control" placeholder="Ingrese precio." min="0">
+          <input type="number" class="form-control" placeholder="Ingrese precio." min="0" formControlName="hourPrice">
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-xl-6 col-sm-12 col-lg-6">
+        <div class="mb-3">
+          <label class="form-label">Capacidad: *</label>
+          <input type="number" class="form-control" placeholder="Ingrese capacidad." min="1" formControlName="capacity">
+        </div>
+      </div>
+      <div class="col-xl-6 col-sm-12 col-lg-6">
+        <div class="mb-3">
+          <label class="form-label">Piso: *</label>
+          <input type="number" class="form-control" placeholder="Ingrese piso." min="1" formControlName="floor">
+        </div>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-xl-12">
         <div class="mb-3">
-          <label class="form-label">Observaciones:</label>
-          <textarea class="form-control" rows="6" placeholder="Ingrese las observaciones."></textarea>
+          <label class="form-label">Descripción:</label>
+          <textarea class="form-control" rows="6" placeholder="Ingrese la descripción de la habitación." formControlName="description"></textarea>
         </div>
       </div>
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+
+    <div *ngIf="exito" class="alert alert-success">
+      {{ exito }}
     </div>
   </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-primary"><i class="fas fa-solid fa-save"></i> Registrar</button>
-  <button type="button" class="btn btn-warning"><i class="fas fa-solid fa-pencil"></i> Actualizar</button>
-  <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="CerrarModal()"><i class="fa-solid fas fa-times"></i> Cerrar</button>
+  <button type="button" class="btn btn-primary" (click)="guardarHabitacion()">
+    <i class="fas fa-save"></i> {{ habitacionEditar ? 'Actualizar' : 'Registrar' }}
+  </button>
+  <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="CerrarModal()">
+    <i class="fas fa-times"></i> Cerrar
+  </button>
 </div>
