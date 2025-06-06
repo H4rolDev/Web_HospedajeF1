@@ -21,6 +21,7 @@ import { SinginComponent } from '../components/auth/singin/singin.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { PagarReservaComponent } from '../components/reservas/pagar-reserva/pagar-reserva.component';
 import { CompanyComponent } from '../components/empleados/company/company.component';
+import { UsuariosComponent } from '../components/empleados/usuarios/usuarios.component';
 
 const routes: Routes = [
     { path: 'login', component: SinginComponent },
@@ -48,6 +49,7 @@ const routes: Routes = [
         { path: 'lista-clientes', component: ListaClientesComponent },
         { path: 'pagar-reserva/:id', component: PagarReservaComponent },
         { path: 'company', component: CompanyComponent },
+        { path: 'usuarios', component: UsuariosComponent },
 
         { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
       ]

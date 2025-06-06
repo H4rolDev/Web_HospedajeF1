@@ -13,7 +13,6 @@ import Swal from 'sweetalert2';
   styleUrl: './lista-personal.component.css'
 })
 export class ListaPersonalComponent {
-
   dataFormGroup: FormGroup;
   textoCriterioBusqueda: string = "";
   fechaActual = moment().toDate();

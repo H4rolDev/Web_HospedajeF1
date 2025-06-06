@@ -14,8 +14,6 @@ import { Cliente } from '../../../dtos/listado-cliente-dto';
 import { ReservationService } from '../../../services/reservation.service';
 import { Router } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-generar-reserva',
   templateUrl: './generar-reserva.component.html',
@@ -107,24 +105,45 @@ export class GenerarReservaComponent {
     let endDate = this.reservationForm.get('endDate')?.value;
     let roomTypeIdRaw = this.reservationForm.get('roomTypeId')?.value;
 
-    // Validar fechas
-    // if (!startDate || !endDate) {
-    //   this.MostrarNotificacionWarning('Debe ingresar las fechas de inicio y fin', 'Advertencia');
-    //   return;
-    // }
+    let fechasIncompletas = (startDate && !endDate) || (!startDate && endDate);
+    let sinCriterios = !roomTypeIdRaw && !startDate && !endDate;
 
-    let page = 0;
-    let size = 10;
+    if (fechasIncompletas) {
+      this.MostrarNotificacionWarning('Debe ingresar ambas fechas: inicio y fin.', 'Advertencia');
+      return;
+    }
 
-    let formattedStartDate = moment(startDate).format("YYYY-MM-DDTHH:mm:ss");
-    let formattedEndDate = moment(endDate).format("YYYY-MM-DDTHH:mm:ss");
+    if (sinCriterios) {
+      this.MostrarNotificacionWarning('Debe ingresar al menos el tipo de habitación o el rango de fechas.', 'Advertencia');
+      return;
+    }
 
-    this.habitacionService.obtenerHabitacionesPorCriterios(page, size, formattedStartDate, formattedEndDate, roomTypeIdRaw)
+    let params: any = {};
+
+    if (startDate && endDate) {
+      let formattedStartDate = moment(startDate).format("YYYY-MM-DDTHH:mm:ss");
+      let formattedEndDate = moment(endDate).format("YYYY-MM-DDTHH:mm:ss");
+
+      if (formattedStartDate === 'Invalid date' || formattedEndDate === 'Invalid date') {
+        this.MostrarNotificacionWarning('Fechas inválidas, por favor verifique.', 'Advertencia');
+        return;
+      }
+
+      params.startDate = formattedStartDate;
+      params.endDate = formattedEndDate;
+    }
+
+    if (roomTypeIdRaw) {
+      params.roomTypeId = roomTypeIdRaw;
+    }
+
+    params.page = 0;
+    params.size = 10;
+
+    this.habitacionService.obtenerHabitacionesPorCriterios(params)
       .subscribe({
         next: (response) => {
-          console.log('Habitaciones disponibles:', response);
-          this.habitacionesDisponibles = response.content;
-          console.log('Habitaciones disponibles:', this.habitacionesDisponibles);
+          this.habitacionesDisponibles = response.content || response;
         },
         error: (error) => {
           console.error('Error al buscar habitaciones:', error);
@@ -192,8 +211,6 @@ export class GenerarReservaComponent {
 
   onSubmit() {
     if (this.reservationForm.invalid) {
-      console.warn('Formulario inválido', this.reservationForm.value);
-      console.warn('Errores:', this.reservationForm.errors);
       this.MostrarNotificacionWarning('Por favor, complete todos los campos requeridos', 'Advertencia');
       return;
     }
@@ -232,10 +249,18 @@ export class GenerarReservaComponent {
   }
 
   cambiarRateTypeGlobal(nuevoRateType: string) {
-  this.reservationForm.patchValue({ rateTypeGlobal: nuevoRateType });
-}
+    this.reservationForm.patchValue({ rateTypeGlobal: nuevoRateType });
+  }
 
+  LimpiarFiltros(): void {
+    this.reservationForm.patchValue({
+      roomTypeId: null,
+      startDate: null,
+      endDate: null
+    });
 
+    this.habitacionesDisponibles = [];
+  }
 
   resetForm(): void {
     this.reservationForm.reset({

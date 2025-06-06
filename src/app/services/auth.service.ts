@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { LoginData } from '../dtos/LoginData';
 import { Router } from '@angular/router';
+import { InsertarUsuariosDTO } from '../dtos/insertar-usuarios-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   private apiUrl = 'https://hotel-system-backend-rvha.onrender.com/api/v1/user/signin';
+  private registerUrl = 'https://hotel-system-backend-rvha.onrender.com/api/v1/user/register';
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient, private router: Router) {
@@ -20,7 +22,7 @@ export class AuthService {
     return this.http.post<any>(this.apiUrl, credentials).pipe(
       tap(response => {
         if (response.token) {
-          localStorage.setItem('token', response.token); // Guarda el token
+          localStorage.setItem('token', response.token);
         }
       })
     );
@@ -41,4 +43,7 @@ export class AuthService {
     this.isAuthenticatedSubject.next(!!token);
   }
 
+  register(userData: InsertarUsuariosDTO): Observable<any> {
+    return this.http.post<any>(this.registerUrl, userData);
+  }
 }

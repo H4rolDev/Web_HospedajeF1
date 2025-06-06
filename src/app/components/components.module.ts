@@ -32,6 +32,8 @@ import { PagarReservaComponent } from './reservas/pagar-reserva/pagar-reserva.co
 import { RouterModule } from '@angular/router';
 import { CompanyComponent } from './empleados/company/company.component';
 import { ModalCompanyComponent } from './empleados/company/modal-company/modal-company.component';
+import { UsuariosComponent } from './empleados/usuarios/usuarios.component';
+import { ModalUsuariosComponent } from './empleados/usuarios/modal-usuarios/modal-usuarios.component';
 
 
 @NgModule({
@@ -63,7 +65,9 @@ import { ModalCompanyComponent } from './empleados/company/modal-company/modal-c
     ModalListaClientesComponent,
     PagarReservaComponent,
     CompanyComponent,
-    ModalCompanyComponent
+    ModalCompanyComponent,
+    UsuariosComponent,
+    ModalUsuariosComponent
   ],
   imports: [
     CommonModule,

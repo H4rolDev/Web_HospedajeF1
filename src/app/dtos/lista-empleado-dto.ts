@@ -5,8 +5,8 @@ export interface Empleado {
   name: string;
   lastName: string;
   phone: string;
-  CompanyId: number;
-  UserId: number;
+  companyId: number | string;
+  userId: number | string;
 }
 
 export interface PaginatedResponse<T> {

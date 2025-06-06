@@ -62,24 +62,15 @@ public actualizarHabitacion(id: number, data: ActualizarHabitacionDTO) {
     );
   }
 
-  public obtenerHabitacionesPorCriterios(
-  page: number,
-  size: number,
-  startDate: string,
-  endDate: string,
-  roomTypeId: number
-): Observable<PaginatedResponse<RoomDto>> {
+  obtenerHabitacionesPorCriterios(params: any): Observable<any> {
+  let httpParams = new HttpParams();
 
-  const params = new HttpParams()
-    .set('startDate', startDate)
-    .set('endDate', endDate)
-    .set('roomTypeId', roomTypeId.toString())
-    .set('page', page.toString())
-    .set('size', size.toString());
+  Object.keys(params).forEach(key => {
+    if (params[key] !== null && params[key] !== undefined && params[key] !== '') {
+      httpParams = httpParams.set(key, params[key]);
+    }
+  });
 
-  return this.http.get<PaginatedResponse<RoomDto>>(`${API_URL}rooms/available`, { params }).pipe(
-    retry(this.nRetry),
-    catchError(this.handleError)
-  );
+  return this.http.get<any>(`${API_URL}rooms/available`, { params: httpParams });
 }
 }

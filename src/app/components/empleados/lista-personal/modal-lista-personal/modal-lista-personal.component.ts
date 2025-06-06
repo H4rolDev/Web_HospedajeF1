@@ -6,6 +6,8 @@ import { Empleado } from '../../../../dtos/lista-empleado-dto';
 import { EmployeeService } from '../../../../services/employee.service';
 import Swal from 'sweetalert2';
 import { InsertarEmpleadoDTO } from '../../../../dtos/insertar-empleado-dto';
+import { CompanyService } from '../../../../services/company.service';
+import { Company } from '../../../../dtos/listado-company-dto';
 
 @Component({
   selector: 'app-modal-lista-personal',
@@ -20,11 +22,12 @@ export class ModalListaPersonalComponent {
   cargando: boolean = false;
   error: string = '';
   exito: string = '';
-
+  listaEmpresas: Company[] = [];
   constructor(
     private bsModalPersonal: BsModalRef,
     private fb: FormBuilder,
-    private empleadoService: EmployeeService
+    private empleadoService: EmployeeService,
+    private companyService: CompanyService
   ){
     this.formularioEmpleado = this.fb.group({
       documentType: new FormControl('',[Validators.required]),
@@ -32,12 +35,8 @@ export class ModalListaPersonalComponent {
       name: new FormControl('',[Validators.required]),
       lastName: new FormControl('',[Validators.required]),
       phone: new FormControl('',[Validators.required]),
-      empresa: new FormControl(''),
-      user: new FormControl(''),
-      // inputColor: new FormControl('',[Validators.required, Validators.pattern(/^[a-zA-Z\s]*$/)]),
-      // inputMicrochip: new FormControl('',[Validators.pattern(/^\d+$/), Validators.minLength(10), Validators.maxLength(12)]),
-      // inputFotoMascota: new FormControl(''),
-      // inputObservaciones: new FormControl('',[Validators.maxLength(500)]),
+      empresa_id: new FormControl(''),
+      usuario_id: new FormControl('')
     })
   }
 
@@ -45,17 +44,40 @@ export class ModalListaPersonalComponent {
     this.formularioEmpleado = this.fb.group({
       documentType: ['', Validators.required],
       documentNumber: ['', Validators.required],
-      name: ['', [Validators.required]],
+      name: ['', Validators.required],
       lastName: ['', Validators.required],
       phone: [''],
-      empresa_id: [''],
-      usuario_id: [''],
+      empresa_id: ['', Validators.required],
+      usuario_id: [2],
     });
 
+    this.cargarEmpresas();
+
     if (this.empleadoEditar) {
-      this.formularioEmpleado.patchValue(this.empleadoEditar);
+      this.formularioEmpleado.patchValue({
+        documentType: this.empleadoEditar.documentType,
+        documentNumber: this.empleadoEditar.documentNumber,
+        name: this.empleadoEditar.name,
+        lastName: this.empleadoEditar.lastName,
+        phone: this.empleadoEditar.phone,
+        empresa_id: Number(this.empleadoEditar.companyId),
+        usuario_id: 2
+      });
     }
   }
+
+  cargarEmpresas(): void {
+    this.companyService.obtenerCompany().subscribe({
+      next: (empresas) => {
+        this.listaEmpresas = empresas;
+      },
+      error: (err) => {
+        console.error('Error al cargar empresas', err);
+        this.MostrarMensajeError('Error al cargar empresas', 'No se pudo cargar la lista de empresas.');
+      }
+    });
+  }
+
 
   guardarTrabajador() {
     if (this.formularioEmpleado.invalid) {

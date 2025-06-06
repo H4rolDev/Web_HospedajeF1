@@ -29,7 +29,6 @@
                 [showClearButton]="true"
                 [useMaskBehavior]="true"
                 type="date"
-                [value]="fechaActual"
                 formControlName="startDate">
               </dx-date-box>
             </div>
@@ -43,7 +42,6 @@
                 [showClearButton]="true"
                 [useMaskBehavior]="true"
                 type="date"
-                [value]="fechaActual"
                 formControlName="endDate">
               </dx-date-box>
             </div>
@@ -53,7 +51,7 @@
               <i class="fa-solid fas fa-search"></i>
               Buscar
             </button>
-            <button type="button" class="btn btn-danger">
+            <button type="button" class="btn btn-danger" (click)="LimpiarFiltros()">
               <i class="fa-solid fas fa-eraser"></i>
               Limpiar
             </button>
