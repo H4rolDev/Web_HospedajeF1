@@ -2,12 +2,12 @@ export interface InsertarHabitacionDTO {
   number: string;
   description: string;
   dailyPrice: number;
-  hourPrice: number;       // corregido
+  hourPrice: number;
   capacity: number;
-  floor: number;           // corregido
+  floor: number;
   status: string;
   statusCleaning: string;
-  roomTypeId: number;
+  tipo_habitacion_id: number;
 }
 
 export interface ActualizarHabitacionDTO {
@@ -15,10 +15,10 @@ export interface ActualizarHabitacionDTO {
   number: string;
   description: string;
   dailyPrice: number;
-  hourPrice: number;       // corregido
+  hourPrice: number;
   capacity: number;
-  floor: number;           // corregido
+  floor: number;
   status: string;
   statusCleaning: string;
-  roomTypeId: number;
+  tipo_habitacion_id: number;
 }

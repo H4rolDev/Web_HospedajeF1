@@ -49,11 +49,32 @@
               <th scope="col">Id</th>
               <th scope="col">Nro. habitacion</th>
               <th scope="col">Tipo habitacion</th>
-              <th scope="col">Piso</th>
-              <th scope="col">Precio</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Precio por dia</th>
+              <th scope="col">Precio por hora</th>
+              <th scope="col">Descripcion</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
+          <tbody>
+            <tr *ngFor="let habitacions of habitacion; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ habitacions.number }}</td>
+              <td>{{ habitacions.roomTypeName }}</td>
+              <td>{{ habitacions.status }}</td>
+              <td>{{ habitacions.dailyPrice }}</td>
+              <td>{{ habitacions.hourPrice }}</td>
+              <td>{{ habitacions.description }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" (click)="editarHabitacion(habitacions)">
+                  <i class="fa-solid fas fa-pen"></i>
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="eliminarHabitacion(habitacions.id)">
+                  <i class="fa-solid fas fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </form>

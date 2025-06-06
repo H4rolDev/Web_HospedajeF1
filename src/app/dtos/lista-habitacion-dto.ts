@@ -1,16 +1,17 @@
 export interface Habitacion {
-  id?: number;            // Opcional, si es para crear puede no llevar id
-  number: string;         // Número de habitación
-  description: string;    // Descripción
-  dailyPrice: number;     // Precio por día
-  hourPrice: number;      // Precio por hora
-  roomTypeId: number;     // Id del tipo de habitación
-  capacity: number;       // Capacidad de la habitación
-  floor: number;          // Piso donde está la habitación
-  status?: string;        // Estado de la habitación, ej: 'LIBRE'
-  statusCleaning?: string;// Estado de limpieza, ej: 'LIMPIO'
+  id: number;
+  number: string;
+  description: string;
+  dailyPrice: number;
+  hourPrice: number;
+  roomTypeId: number;
+  capacity: number;
+  floor: number;
+  status?: string;
+  statusCleaning?: string;
   typeRoom?: string;
-  roomTypeName?: string; // Nombre del tipo de habitación
+  roomTypeName?: string;
+  tipo_habitacion_id?: number;
 }
 
 export interface PaginatedResponse<T> {

@@ -13,12 +13,9 @@
       </div>
       <div class="col-xl-6 col-sm-12 col-lg-6">
         <div class="mb-3">
-          <option formControlName="roomTypeId" >Seleccione un tipo de habitación</option>
-          <select class="form-select" >
-            <option value="" disabled selected>Seleccione un tipo de habitación</option>
-            <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">
-              {{ tipo.name }}
-            </option>
+          <label class="form-label">Tipo de habitación: *</label>
+          <select formControlName="tipo_habitacion_id" class="form-select" required>
+            <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">{{ tipo.name }}</option>
           </select>
         </div>
       </div>

@@ -3,46 +3,23 @@
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="CerrarModal()"></button>
 </div>
 <div class="modal-body">
-  <form action="">
+  <form [formGroup]="formularioproducto">
     <div class="row">
       <div class="col-xl-6 col-sm-12 col-lg-6">
         <div class="mb-3">
           <label class="form-label">Nombre: *</label>
-          <input type="text" class="form-control" placeholder="Ingrese nombre producto.">
-        </div>
-      </div>
-      <div class="col-xl-6 col-sm-12 col-lg-6">
-        <div class="mb-3">
-          <label class="form-label">Precio: *</label>
-          <input type="text" class="form-control" placeholder="Ingrese precio.">
+          <input type="text" class="form-control" placeholder="Ingrese nombre producto." formControlName="name">
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xl-6 col-sm-12 col-lg-6">
-        <div class="mb-3">
-          <label class="form-label">Stock: *</label>
-          <input type="text" class="form-control" placeholder="Ingrese stock.">
-        </div>
-      </div>
-      <div class="col-xl-6 col-sm-12 col-lg-6">
-        <div class="mb-3">
-          <label class="form-label">Categoria: *</label>
-          <select class="form-select">
-            <option value="1">Bebidas</option>
-            <option value="2">Piqueos</option>
-            <option value="3">Higiene</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xl-12 col-sm-12 col-lg-12">
-        <div class="mb-3">
-          <label class="form-label">Descripcion:</label>
-          <textarea class="form-control" rows="3" placeholder="Ingrese descripcion."></textarea>
-        </div>
-      </div>
-    </div>
+
   </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="guardarProducto()">
+    <i class="fas fa-save"></i> {{ productoEditar ? 'Actualizar' : 'Registrar' }}
+  </button>
+  <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="CerrarModal()">
+    <i class="fas fa-times"></i> Cerrar
+  </button>
 </div>

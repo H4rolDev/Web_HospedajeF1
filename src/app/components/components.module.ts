@@ -30,6 +30,8 @@ import { GenerarReservaComponent } from './reservas/generar-reserva/generar-rese
 import { ModalListaClientesComponent } from './reservas/lista-clientes/modal-lista-clientes/modal-lista-clientes.component';
 import { PagarReservaComponent } from './reservas/pagar-reserva/pagar-reserva.component';
 import { RouterModule } from '@angular/router';
+import { CompanyComponent } from './empleados/company/company.component';
+import { ModalCompanyComponent } from './empleados/company/modal-company/modal-company.component';
 
 
 @NgModule({
@@ -59,7 +61,9 @@ import { RouterModule } from '@angular/router';
     SinginComponent,
     GenerarReservaComponent,
     ModalListaClientesComponent,
-    PagarReservaComponent
+    PagarReservaComponent,
+    CompanyComponent,
+    ModalCompanyComponent
   ],
   imports: [
     CommonModule,

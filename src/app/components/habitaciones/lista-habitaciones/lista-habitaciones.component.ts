@@ -13,7 +13,6 @@ import Swal from 'sweetalert2';
   styleUrl: './lista-habitaciones.component.css'
 })
 export class ListaHabitacionesComponent {
-
   dataFormGroup: FormGroup;
   textoCriterioBusqueda: string = "";
   fechaActual = moment().toDate();
@@ -37,6 +36,9 @@ export class ListaHabitacionesComponent {
 
   AbrirModal(){
     this.BsModalRef = this.modalService.show(ModalHabitacionesComponent, {backdrop:'static', class: 'modal-lg'});
+    this.BsModalRef.content.habitacionCreado?.subscribe(() => {
+      this.obtenerListaHabitacion();
+    });
   }
 
   obtenerListaHabitacion(): void {
@@ -61,12 +63,12 @@ export class ListaHabitacionesComponent {
       initialState: { habitacionEditar: habitacion }
     });
 
-    this.BsModalRef.content.empleadoCreado?.subscribe(() => {
+    this.BsModalRef.content.habitacionCreado?.subscribe(() => {
       this.obtenerListaHabitacion();
     });
   }
 
-  eliminarEmpleado(id: number) {
+  eliminarHabitacion(id: number) {
     this.MostrarMensajeEliminar(id);
   }
 
