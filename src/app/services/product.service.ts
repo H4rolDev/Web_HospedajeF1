@@ -11,7 +11,7 @@ const API_URL = environment.apiURL;
   providedIn: 'root'
 })
 export class ProductService {
-constructor( private http: HttpClient ) { }
+  constructor( private http: HttpClient ) { }
 
   public nTimeout: number = 20000;
   public nRetry: number = 0;

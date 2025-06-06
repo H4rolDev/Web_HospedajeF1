@@ -42,6 +42,7 @@ export class ModalTiposHabitacionesComponent {
 
   guardarTipoHabitacion() {
     if (this.formularioTipoHabitacion.invalid) {
+      this.MostrarMensajeError('Formulario inválido', 'Por favor, complete todos los campos requeridos.');
       this.formularioTipoHabitacion.markAllAsTouched();
       return;
     }

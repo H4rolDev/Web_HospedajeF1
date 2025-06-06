@@ -1,1 +1,58 @@
-<p>modal-company works!</p>
+<div class="modal-header">
+  <h1 class="modal-title fs-5" id="modalClienteLabel">MÓDULO EMPRESA</h1>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="CerrarModal()"></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="formularioCompany">
+    <div class="row">
+      <div class="col-xl-6 col-sm-12 col-lg-6">
+        <div class="mb-3">
+          <label class="form-label">Nombre: *</label>
+          <input type="text" class="form-control" placeholder="Ingrese nombre de la empresa." formControlName="name">
+        </div>
+      </div>
+      <div class="col-xl-6 col-sm-12 col-lg-6">
+        <div class="mb-3">
+          <label class="form-label">Email:</label>
+          <input type="text" class="form-control" placeholder="Ingrese el email." formControlName="email">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-sm-12 col-lg-6">
+        <div class="mb-3">
+          <label class="form-label">Ruc: *</label>
+          <input type="text" class="form-control" placeholder="Ingrese el ruc de la empresa." formControlName="ruc">
+        </div>
+      </div>
+      <div class="col-xl-6 col-sm-12 col-lg-6">
+        <div class="mb-3">
+          <label class="form-label">Localizacion:</label>
+          <input type="text" class="form-control" placeholder="Ingrese la localizacion de la empresa." formControlName="location">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-sm-12 col-lg-6">
+        <div class="mb-3">
+          <label class="form-label">Celular: *</label>
+          <input type="text" class="form-control" placeholder="Ingrese el celular de la empresa." formControlName="phone">
+        </div>
+      </div>
+      <div class="col-xl-6 col-sm-12 col-lg-6">
+        <div class="mb-3">
+          <label class="form-label">Url de Logo:</label>
+          <input type="text" class="form-control" placeholder="Ingrese la url del logo de la empresa." formControlName="logoUrl">
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="guardarCompany()">
+    <i class="fas fa-save"></i> {{ companyEditar ? 'Actualizar' : 'Registrar' }}
+  </button>
+  <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="CerrarModal()">
+    <i class="fas fa-times"></i> Cerrar
+  </button>
+</div>
